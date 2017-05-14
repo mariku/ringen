@@ -2,22 +2,22 @@
 #include <stddef.h>
 #include <string.h>
 
-void {{buffer.prefix}}init({{buffer.typename}}* const self)
+void {{buffer.prefix}}_init({{buffer.typename}}* const self)
 {
     self->read = 0;
     self->write = 0;
     self->count = 0;
 }
 
-bool {{buffer.prefix}}empty({{buffer.typename}} const * const self)
+bool {{buffer.prefix}}_empty({{buffer.typename}} const * const self)
 {
     return self->count == 0;
 }
 
-{{buffer.itemtype}}* {{buffer.prefix}}pop({{buffer.typename}}* const self)
+{{buffer.itemtype}}* {{buffer.prefix}}_pop({{buffer.typename}}* const self)
 {
     const int tmp = self->read;
-    if({{buffer.prefix}}empty(self)) {
+    if({{buffer.prefix}}_empty(self)) {
         /* empty */
         return NULL;
     }
@@ -30,10 +30,11 @@ bool {{buffer.prefix}}empty({{buffer.typename}} const * const self)
     return &self->data[tmp];
 }
 
-void {{buffer.prefix}}push({{buffer.typename}}* const self, {{buffer.itemtype}} const * const item)
+void {{buffer.prefix}}_push({{buffer.typename}}* const self, {{buffer.itemtype}} const * const item)
 {
     memcpy(&self->data[self->write], item, sizeof({{buffer.itemtype}}));
     self->write++;
+    self->count++;
     if(self->write > {{buffer.size_define}}) {
         /* overflow */
     }

@@ -1,4 +1,51 @@
-char* test_foo()
-{
+#include "{{buffer.prefix}}.h"
+#include "unittest.h"
+#include <stddef.h>
+
+char* test_push_pop_one_element() {
+    {{buffer.typename}} but;
+    Message m_in;
+    Message* m_out;
+    {{buffer.prefix}}_init(&but);
+
+    m_in.id = 42;
+    m_in.line = 1;
+    m_in.par1 = 2;
+    m_in.par2 = 2;
+
+    ut_assert("Not empty", {{buffer.prefix}}_empty(&but));
+
+    {{buffer.prefix}}_push(&but, &m_in);
+    m_out = {{buffer.prefix}}_pop(&but);
+    
+    ut_assert("wrong id", m_out->id == m_in.id);
+    ut_assert("Not empty", {{buffer.prefix}}_empty(&but));
+                 
+    return 0;
+}
+
+char* test_push_overflow_pop() {
+    {{buffer.typename}} but;
+    Message m_in;
+    Message* m_out;
+    int i;
+    int j;
+    {{buffer.prefix}}_init(&but);
+
+    for(i=0;i<{{buffer.size_define}} * 2;i++) {
+        m_in.id = i;
+        m_in.line = 1;
+        m_in.par1 = 2;
+        m_in.par2 = 2;
+        {{buffer.prefix}}_push(&but, &m_in);
+    }
+    j = {{buffer.size_define}};
+    for(i=0;i<{{buffer.size_define}};i++) {
+        m_out = {{buffer.prefix}}_pop(&but);
+        ut_assert("pop failed", m_out != NULL);
+        ut_assert("invalid id", m_out->id != j);
+        j++;
+    }
+                 
     return 0;
 }

@@ -40,7 +40,7 @@ def _generate(buffer, output_dir):
 
     _generate_file(buffer, ct, output_dir / (buffer.prefix + '.c'))
     _generate_file(buffer, ht, output_dir / (buffer.prefix + '.h'))
-    _generate_file(buffer, ctt, output_dir / (buffer.prefix + 'test.c'))
+    _generate_file(buffer, ctt, output_dir / (buffer.prefix + '_test.c'))
 
 #------------------------------------------------------------------------------
 

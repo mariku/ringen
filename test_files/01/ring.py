@@ -3,7 +3,7 @@ h_before_code = """
 #include "message.h"
 """
 
-buffer("Logging_rb_",
+buffer("Logging_rb",
        "LoggingMessages",
        "Message",
        "NUMBER_OF_MESSAGES",

@@ -12,9 +12,9 @@ typedef struct {
     int count;
 }{{buffer.typename}};
 
-void {{buffer.prefix}}init({{buffer.typename}}* const self);
-bool {{buffer.prefix}}empty({{buffer.typename}} const * const self);
-{{buffer.itemtype}}* {{buffer.prefix}}pop({{buffer.typename}}* const self);
-void {{buffer.prefix}}push({{buffer.typename}}* const self, {{buffer.itemtype}} const * const item);
+void {{buffer.prefix}}_init({{buffer.typename}}* const self);
+bool {{buffer.prefix}}_empty({{buffer.typename}} const * const self);
+{{buffer.itemtype}}* {{buffer.prefix}}_pop({{buffer.typename}}* const self);
+void {{buffer.prefix}}_push({{buffer.typename}}* const self, {{buffer.itemtype}} const * const item);
 
 #endif /* include guard */
