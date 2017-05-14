@@ -1,2 +1,20 @@
-{{buffer.itemtype}}* {{buffer.prefix}}pop({{buffer.typename}}* self);
-{{buffer.prefix}}push({{buffer.typename}}* self, {{buffer.itemtype}}* item); 
+#ifndef {{buffer.prefix | upper}}_H
+#define {{buffer.prefix | upper}}_H
+
+{% if buffer.h_before_code %}{{buffer.h_before_code}}{% endif %}
+
+#include <stdbool.h>
+
+typedef struct {
+    {{buffer.itemtype}} data[{{buffer.size_define}}];
+    int read;
+    int write;
+    int count;
+}{{buffer.typename}};
+
+void {{buffer.prefix}}init({{buffer.typename}}* const self);
+bool {{buffer.prefix}}empty({{buffer.typename}} const * const self);
+{{buffer.itemtype}}* {{buffer.prefix}}pop({{buffer.typename}}* const self);
+void {{buffer.prefix}}push({{buffer.typename}}* const self, {{buffer.itemtype}} const * const item);
+
+#endif /* include guard */

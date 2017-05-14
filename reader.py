@@ -34,15 +34,20 @@ def _generate(buffer, output_dir):
     )
     ct = env.get_template("default_c.tmpl")
     ht = env.get_template("default_h.tmpl")
+    ctt = env.get_template("default_test_c.tmpl")
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    c_output_filename = buffer.prefix + '.c'
-    with (output_dir / c_output_filename).open('w') as f:
-        f.write(ct.render(buffer=buffer))
-    h_output_filename = buffer.prefix + '.h'
-    with (output_dir / h_output_filename).open('w') as f:
-        f.write(ht.render(buffer=buffer))
+    _generate_file(buffer, ct, output_dir / (buffer.prefix + '.c'))
+    _generate_file(buffer, ht, output_dir / (buffer.prefix + '.h'))
+    _generate_file(buffer, ctt, output_dir / (buffer.prefix + 'test.c'))
+
+#------------------------------------------------------------------------------
+
+
+def _generate_file(buffer, template, output_filename):
+    with output_filename.open('w') as f:
+        f.write(template.render(buffer=buffer))
 
 #------------------------------------------------------------------------------
 

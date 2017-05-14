@@ -1,6 +1,6 @@
 
 h_before_code = """
-#include "Message.h"
+#include "message.h"
 """
 
 buffer("Logging_rb_",

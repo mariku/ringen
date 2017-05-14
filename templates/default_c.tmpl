@@ -1,5 +1,41 @@
-{{buffer.prefix}}push(){ 
+#include "{{buffer.prefix}}.h"
+#include <stddef.h>
+#include <string.h>
+
+void {{buffer.prefix}}init({{buffer.typename}}* const self)
+{
+    self->read = 0;
+    self->write = 0;
+    self->count = 0;
 }
 
-{{buffer.prefix}}push(){ 
+bool {{buffer.prefix}}empty({{buffer.typename}} const * const self)
+{
+    return self->count == 0;
 }
+
+{{buffer.itemtype}}* {{buffer.prefix}}pop({{buffer.typename}}* const self)
+{
+    const int tmp = self->read;
+    if({{buffer.prefix}}empty(self)) {
+        /* empty */
+        return NULL;
+    }
+    self->count--;
+    self->read++;
+    if(self->read > {{buffer.size_define}}) {
+        /* overflow */
+        self->read = 0;
+    }
+    return &self->data[tmp];
+}
+
+void {{buffer.prefix}}push({{buffer.typename}}* const self, {{buffer.itemtype}} const * const item)
+{
+    memcpy(&self->data[self->write], item, sizeof({{buffer.itemtype}}));
+    self->write++;
+    if(self->write > {{buffer.size_define}}) {
+        /* overflow */
+    }
+}
+
